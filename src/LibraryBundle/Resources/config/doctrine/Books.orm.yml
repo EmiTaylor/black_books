@@ -1,0 +1,41 @@
+LibraryBundle\Entity\Books:
+    type: entity
+    table: books
+    indexes:
+        IDX_4A1B2A92CB8C5497:
+            columns:
+                - categorie
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        titre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        auteur:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    manyToOne:
+        categorie:
+            targetEntity: Books
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                categorie:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

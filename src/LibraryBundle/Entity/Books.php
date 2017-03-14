@@ -7,45 +7,50 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Books
  *
- * @ORM\Table(name="books")
- * @ORM\Entity(repositoryClass="LibraryBundle\Repository\BooksRepository")
+ * @ORM\Table(name="books", indexes={@ORM\Index(name="IDX_4A1B2A92CB8C5497", columns={"categorie"})})
+ * @ORM\Entity
  */
 class Books
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Titre", type="string", length=255)
+     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
      */
     private $titre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Auteur", type="string", length=255)
+     * @ORM\Column(name="auteur", type="string", length=255, nullable=false)
      */
     private $auteur;
 
-    /** 
-     * @ORM\ManyToOne(targetEntity="Categories")
-     * @ORM\JoinColumn(name="Categorie",  referencedColumnName="id", nullable=false)
+    /**
+     * @var \LibraryBundle\Entity\Books
+     *
+     * @ORM\ManyToOne(targetEntity="LibraryBundle\Entity\Books")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="categorie", referencedColumnName="id")
+     * })
      */
     private $categorie;
+
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -103,11 +108,11 @@ class Books
     /**
      * Set categorie
      *
-     * @param integer $categorie
+     * @param \LibraryBundle\Entity\Books $categorie
      *
      * @return Books
      */
-    public function setCategorie($categorie)
+    public function setCategorie(\LibraryBundle\Entity\Books $categorie = null)
     {
         $this->categorie = $categorie;
 
@@ -117,11 +122,10 @@ class Books
     /**
      * Get categorie
      *
-     * @return int
+     * @return \LibraryBundle\Entity\Books
      */
     public function getCategorie()
     {
         return $this->categorie;
     }
 }
-

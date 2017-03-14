@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/Library")
+     * @Route("/")
      */
     public function indexAction(){
         return $this->render('LibraryBundle:Default:index.html.twig');

@@ -106,6 +106,79 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
 
         if (0 === strpos($pathinfo, '/admin')) {
+            // admin_index
+            if (rtrim($pathinfo, '/') === '/admin') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_admin_index;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'admin_index');
+                }
+
+                return array (  '_controller' => 'LibraryBundle\\Controller\\AdminController::indexAction',  '_route' => 'admin_index',);
+            }
+            not_admin_index:
+
+            if (0 === strpos($pathinfo, '/admin/books')) {
+                // admin_books_index
+                if ($pathinfo === '/admin/books') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_admin_books_index;
+                    }
+
+                    return array (  '_controller' => 'LibraryBundle\\Controller\\AdminController::booksAction',  '_route' => 'admin_books_index',);
+                }
+                not_admin_books_index:
+
+                // admin_books_show
+                if (0 === strpos($pathinfo, '/admin/books/show') && preg_match('#^/admin/books/show/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_admin_books_show;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_books_show')), array (  '_controller' => 'LibraryBundle\\Controller\\AdminController::showBookAction',));
+                }
+                not_admin_books_show:
+
+                // admin_books_new
+                if ($pathinfo === '/admin/books/new') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_admin_books_new;
+                    }
+
+                    return array (  '_controller' => 'LibraryBundle\\Controller\\AdminController::newAction',  '_route' => 'admin_books_new',);
+                }
+                not_admin_books_new:
+
+                // admin_books_edit
+                if (preg_match('#^/admin/books/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_admin_books_edit;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_books_edit')), array (  '_controller' => 'LibraryBundle\\Controller\\AdminController::editAction',));
+                }
+                not_admin_books_edit:
+
+                // admin_books_delete
+                if (preg_match('#^/admin/books/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    if ($this->context->getMethod() != 'DELETE') {
+                        $allow[] = 'DELETE';
+                        goto not_admin_books_delete;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_books_delete')), array (  '_controller' => 'LibraryBundle\\Controller\\AdminController::deleteAction',));
+                }
+                not_admin_books_delete:
+
+            }
+
             if (0 === strpos($pathinfo, '/adminbooks')) {
                 // adminbooks_index
                 if (rtrim($pathinfo, '/') === '/adminbooks') {
@@ -265,8 +338,74 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
         not_detailbooks:
 
+        if (0 === strpos($pathinfo, '/crud')) {
+            // crud_index
+            if (rtrim($pathinfo, '/') === '/crud') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_crud_index;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'crud_index');
+                }
+
+                return array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::indexAction',  '_route' => 'crud_index',);
+            }
+            not_crud_index:
+
+            // crud_create
+            if ($pathinfo === '/crud/create') {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_crud_create;
+                }
+
+                return array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::createAction',  '_route' => 'crud_create',);
+            }
+            not_crud_create:
+
+            // crud_read
+            if ($pathinfo === '/crud/read') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_crud_read;
+                }
+
+                return array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::readAction',  '_route' => 'crud_read',);
+            }
+            not_crud_read:
+
+            // crud_update
+            if ($pathinfo === '/crud/update') {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_crud_update;
+                }
+
+                return array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::updateAction',  '_route' => 'crud_update',);
+            }
+            not_crud_update:
+
+            // crud_delete
+            if (0 === strpos($pathinfo, '/crud/books') && preg_match('#^/crud/books/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'DELETE') {
+                    $allow[] = 'DELETE';
+                    goto not_crud_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'crud_delete')), array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::deleteAction',));
+            }
+            not_crud_delete:
+
+        }
+
         // library_default_index
-        if ($pathinfo === '/Library') {
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'library_default_index');
+            }
+
             return array (  '_controller' => 'LibraryBundle\\Controller\\DefaultController::indexAction',  '_route' => 'library_default_index',);
         }
 

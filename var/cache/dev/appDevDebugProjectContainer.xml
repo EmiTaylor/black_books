@@ -461,7 +461,7 @@
                 <tag name="cache.pool" clearer="cache.default_clearer"/>
                 <argument>Q3ttM-ny4i</argument>
                 <argument>0</argument>
-                <argument>Gpg1sAeUL0huqLnj+ct5WS</argument>
+                <argument>C2P6o+BzcEAvVJf4DXyvIm</argument>
                 <argument>/var/www/html/black_books/var/cache/dev/pools</argument>
                 <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
                 <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -644,7 +644,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>BTE2yGQHvH</argument>
       <argument>0</argument>
-      <argument>Gpg1sAeUL0huqLnj+ct5WS</argument>
+      <argument>C2P6o+BzcEAvVJf4DXyvIm</argument>
       <argument>/var/www/html/black_books/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -654,7 +654,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>UvpDG5SVBd</argument>
       <argument>0</argument>
-      <argument>Gpg1sAeUL0huqLnj+ct5WS</argument>
+      <argument>C2P6o+BzcEAvVJf4DXyvIm</argument>
       <argument>/var/www/html/black_books/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1647,7 +1647,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>58c660d6283ac8.61117864</argument>
+            <argument>58c7c8e42acb88.11981733</argument>
           </service>
         </argument>
       </argument>
@@ -1795,7 +1795,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>58c660d6283ac8.61117864</argument>
+            <argument>58c7c8e42acb88.11981733</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -2272,11 +2272,13 @@
               <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false">
                 <call method="addDriver">
                   <argument type="service">
-                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
-                      <argument type="service" id="annotation_reader"/>
+                    <service class="Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver" public="false">
                       <argument type="collection">
-                        <argument>/var/www/html/black_books/src/LibraryBundle/Entity</argument>
+                        <argument key="/var/www/html/black_books/src/LibraryBundle/Resources/config/doctrine">LibraryBundle\Entity</argument>
                       </argument>
+                      <call method="setGlobalBasename">
+                        <argument>mapping</argument>
+                      </call>
                     </service>
                   </argument>
                   <argument>LibraryBundle\Entity</argument>

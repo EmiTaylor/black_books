@@ -1,0 +1,60 @@
+<?php
+
+namespace LibraryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Copy
+ *
+ * @ORM\Table(name="copy", indexes={@ORM\Index(name="etat", columns={"etat"}), @ORM\Index(name="books", columns={"books"})})
+ * @ORM\Entity
+ */
+class Copy
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=false)
+     */
+    private $status;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="prix", type="integer", nullable=false)
+     */
+    private $prix;
+
+    /**
+     * @var \LibraryBundle\Entity\Etat
+     *
+     * @ORM\ManyToOne(targetEntity="LibraryBundle\Entity\Etat")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="etat", referencedColumnName="id")
+     * })
+     */
+    private $etat;
+
+    /**
+     * @var \LibraryBundle\Entity\Books
+     *
+     * @ORM\ManyToOne(targetEntity="LibraryBundle\Entity\Books")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="books", referencedColumnName="id")
+     * })
+     */
+    private $books;
+
+
+}
+

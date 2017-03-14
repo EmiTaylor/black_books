@@ -1,0 +1,39 @@
+LibraryBundle\Entity\Etat:
+    type: entity
+    table: etat
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        neuf:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        occasion:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        detruit:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        pageDechire:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: 'page dechire'
+    lifecycleCallbacks: {  }

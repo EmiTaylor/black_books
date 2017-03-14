@@ -1,0 +1,54 @@
+<?php
+
+namespace LibraryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Status
+ *
+ * @ORM\Table(name="status")
+ * @ORM\Entity
+ */
+class Status
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rayon", type="string", length=255, nullable=false)
+     */
+    private $rayon;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="categorie", type="integer", nullable=false)
+     */
+    private $categorie;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="vendu", type="boolean", nullable=false)
+     */
+    private $vendu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="emprunter", type="string", length=255, nullable=false)
+     */
+    private $emprunter;
+
+
+}
+

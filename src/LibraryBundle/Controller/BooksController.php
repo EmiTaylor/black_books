@@ -5,7 +5,8 @@ namespace LibraryBundle\Controller;
 use LibraryBundle\Entity\Books;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Book controller.
@@ -37,8 +38,8 @@ class BooksController extends Controller
      * @Route("/new", name="adminbooks_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request){
+        
         $book = new Books();
         $form = $this->createForm('LibraryBundle\Form\BooksType', $book);
         $form->handleRequest($request);

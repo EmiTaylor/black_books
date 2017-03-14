@@ -11,14 +11,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class ConsultingController extends Controller
-{
+class ConsultingController extends Controller{
     /**
      * @Method ({"GET"})
      * @Route("/books")
      */
-    public function booksAction()
-    {
+    public function booksAction(){
         $em = $this->getDoctrine()->getManager();
 
         $books = $em->getRepository('LibraryBundle:Books')->findAll();
@@ -43,8 +41,7 @@ class ConsultingController extends Controller
      * @Method ({"GET"})
      * @Route("/cat/{id}")
      */
-    public function catAction(Categories $categorie)
-    {
+    public function catAction(Categories $categorie){
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('LibraryBundle:Books')->findBy(array('categorie' => $categorie));
 
@@ -53,7 +50,7 @@ class ConsultingController extends Controller
         //     'books' => $books
         // ));
         $tabcat = [];
-        foreach ($categories as $categorie) {
+        foreach ($categories as $categorie){
             $tabcat [] = [
                 'id'    => $categorie->getId(),
                 'titre'   => $categorie->getTitre(),
@@ -66,8 +63,7 @@ class ConsultingController extends Controller
      * @Method ({"GET"})
      * @Route("/books/{id}", name="detailbooks")
      */
-    public function bookAction(Books $book)
-    {
+    public function bookAction(Books $book){
 
         // return $this->render('LibraryBundle:Consulting:book.html.twig', array(
         //     'book' => $book,

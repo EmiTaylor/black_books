@@ -1,0 +1,54 @@
+<?php
+
+namespace LibraryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Etat
+ *
+ * @ORM\Table(name="etat")
+ * @ORM\Entity
+ */
+class Etat
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="neuf", type="string", length=255, nullable=false)
+     */
+    private $neuf;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="occasion", type="string", length=255, nullable=false)
+     */
+    private $occasion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="detruit", type="string", length=255, nullable=false)
+     */
+    private $detruit;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="page dechire", type="string", length=255, nullable=false)
+     */
+    private $pageDechire;
+
+
+}
+

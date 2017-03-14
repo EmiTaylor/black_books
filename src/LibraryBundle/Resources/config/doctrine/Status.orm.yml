@@ -1,0 +1,34 @@
+LibraryBundle\Entity\Status:
+    type: entity
+    table: status
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        rayon:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        categorie:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        vendu:
+            type: boolean
+            nullable: false
+        emprunter:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }
