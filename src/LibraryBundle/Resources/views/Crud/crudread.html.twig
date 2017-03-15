@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LibraryBundle:Crud:read{% endblock %}
+
+{% block body %}
+    <h1>Read Books</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ book.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ book.titre }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ book.auteur }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ book.categorie }}</td>
+            </tr>
+
+
+
+
+        </tbody>
+    </table>
+        <li>
+            <a href="{{ path('crud_index', { 'id': book.id }) }}">Retour à l'index</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

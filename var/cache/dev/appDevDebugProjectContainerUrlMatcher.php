@@ -366,13 +366,13 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             not_crud_create:
 
             // crud_read
-            if ($pathinfo === '/crud/read') {
+            if (0 === strpos($pathinfo, '/crud/read') && preg_match('#^/crud/read/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
                 if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
                     $allow = array_merge($allow, array('GET', 'HEAD'));
                     goto not_crud_read;
                 }
 
-                return array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::readAction',  '_route' => 'crud_read',);
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'crud_read')), array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::readAction',));
             }
             not_crud_read:
 
@@ -387,16 +387,16 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_crud_update:
 
-            // crud_delete
-            if (0 === strpos($pathinfo, '/crud/books') && preg_match('#^/crud/books/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            // crud_books_delete
+            if ($pathinfo === '/crud/books/delete') {
                 if ($this->context->getMethod() != 'DELETE') {
                     $allow[] = 'DELETE';
-                    goto not_crud_delete;
+                    goto not_crud_books_delete;
                 }
 
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'crud_delete')), array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::deleteAction',));
+                return array (  '_controller' => 'LibraryBundle\\Controller\\CrudController::deleteAction',  '_route' => 'crud_books_delete',);
             }
-            not_crud_delete:
+            not_crud_books_delete:
 
         }
 

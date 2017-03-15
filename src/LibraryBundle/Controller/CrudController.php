@@ -8,9 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use LibraryBundle\Entity\Books;
 use LibraryBundle\Entity\Categories;
+use LibraryBundle\Entity\Etat;
+use LibraryBundle\Entity\Status;
+use LibraryBundle\Entity\Copy;
 
 /**
  * Crud controller
+ *@author Emilie Letailleur
  * @Route("crud")
  */
  class CrudController extends Controller{
@@ -49,11 +53,12 @@ use LibraryBundle\Entity\Categories;
            /**
             * Read book entity.
             *
-            * @Route("/read", name="crud_read")
+            * @Route("/read/{id}", name="crud_read")
             * @Method("GET")
             */
             public function readAction(Request $request){
 
+                $book = new Books();
                 $deleteForm = $this->createDeleteForm($book);
 
                 return $this->render('LibraryBundle:Crud:crudread.html.twig', array(
@@ -70,17 +75,15 @@ use LibraryBundle\Entity\Categories;
 
              public function updateAction(Request $request){
 
-                 $updateForm = $this->createUpdateForm($book);
+                 $book = new Books();
+                 $updateForm = $this->createDeleteForm($book);
 
-                 return $this->render('LibraryBundle:Crud:crud_update.html.twig', array(
-                     'book' => $book,
-                     'delete_form' => $deleteForm->createView(),
-                 ));
+                 return $this->render('LibraryBundle:Crud:crudupdate.html.twig');
              }
              /**
               * Delete a book entity.
               *
-              * @Route("/books/{id}", name="crud_delete")
+              * @Route("/books/delete", name="crud_books_delete")
               * @Method("DELETE")
               */
              public function deleteAction(Request $request, Books $book)
@@ -94,8 +97,9 @@ use LibraryBundle\Entity\Categories;
                      $em->flush($book);
                  }
 
-                 return $this->redirectToRoute('crud_index');
+                 return $this->render('LibraryBundle:Crud:index.html.twig');
              }
+
              /**
               * Creates a form to delete a book entity.
               *
@@ -106,7 +110,7 @@ use LibraryBundle\Entity\Categories;
              public function createDeleteForm(Books $book)
              {
                  return $this->createFormBuilder()
-                     ->setAction($this->generateUrl('crud_delete', array('id' => $book->getId())))
+                     ->setAction($this->generateUrl('crud_books_delete', array('id' => $book->getId())))
                      ->setMethod('DELETE')
                      ->getForm()
                  ;
